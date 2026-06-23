@@ -1,0 +1,107 @@
+body
+{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    /* On travaille sur la balise body, donc sur TOUTE la page */
+    background-color: #000; /* Le fond de la page sera noir */
+    background:url("https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80") fixed no-repeat center;
+    margin: 0;
+    color: white; /* Le texte de la page sera blanc */
+
+}
+/* Positionne tout le bloc en haut à droite de la page */
+.bloc-header-togo
+ {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 100px; /* Largeur de la zone */
+    display: inline-flex;
+    flex-direction:column;
+    align-items: center; /* Centre le logo et le texte ensemble */
+    text-align: center;
+}
+
+/* Gère l'affichage des armoiries */
+.logo-togo
+ {
+    width: 100px;  /* Ajustez la largeur du logo selon vos besoins */
+    height: 90px; /* Ajustez la hauteur du logo */
+    background: url("Dossier 1/armoirie togo.png") no-repeat  center / contain;
+    margin-bottom: 5px; /* Espace léger entre le logo et le texte */
+}
+
+/* Style de la devise sous le logo */
+.devise-togo
+ {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 9px;
+    font-weight: bold;
+    color: #000000; /* Écrit en blanc pour ressortir sur le fond */
+    margin: 0;
+    line-height: 1.3;
+    
+}
+
+h1 
+{
+    font-size:40px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight:normal;
+    text-align:center;
+    color:rgb(0, 0, 0);
+    background-color:rgba(255,0,0,20%);
+    opacity:300%;
+    
+}
+.mot
+{
+    color:none;
+    
+}
+h2
+{
+    font-style:oblique;
+}
+ p
+{
+    
+    text-decoration:blink;
+    clear:both;
+}
+li
+{
+    font-style:italic;
+    text-decoration:none;
+}
+
+p#help
+{
+    
+    font-size:16px;
+    font-family:georgia,impact,arial,serif;
+    font-style:oblique;
+    font-weight:bold;
+    text-decoration:none;
+    text-align:center;
+    
+}
+.hervé
+{
+    clear:both;
+}
+a
+{
+    
+    text-decoration:none;
+}
+
+
+.denis_1
+{
+
+    width:10%;
+    height:auto;
+    float:left;
+
+
+}
