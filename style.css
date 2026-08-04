@@ -1,0 +1,337 @@
+body {
+    /* Un dégradé lumineux et vibrant : Bleu Électrique -> Violet -> Magenta */
+    background: linear-gradient(135deg, #4a00e0 0%, #8e2de2 50%, #f000ff 100%);
+
+    /* Pour que le fond couvre tout l'écran, même si le contenu est court */
+    min-height: 100vh;
+    margin: 0;
+
+    /* Pour garder un fond fixe quand on défile la page */
+    background-attachment: fixed;
+
+    /* Typographie propre et couleur du texte */
+    font-family: 'Times New Roman', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+
+
+
+}
+
+header {
+
+    /*style pour le mot de bienvenue pour les élèves*/
+
+
+    /* Dégradé de fond avec une image semi-transparente */
+    background: linear-gradient(rgba(15, 12, 41, 0.7), rgba(48, 43, 99, 0.7)),
+        url('https://tse3.mm.bing.net/th/id/OIP.eYW5voJBE9ViNAIeOdNc7AHaE7?r=0&rs=1&pid=ImgDetMain&o=7&rm=300');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-clip: padding-box;
+
+    /* Pour que le texte soit bien lisible sur l'image de fond et placer un effet de glass morphisme */
+    padding: 10px;
+    text-align: center;
+    font-family: Georgia,
+        'Times New Roman',
+        Times,
+        sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    margin: 0 auto;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(10px) saturate(180%);
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+
+
+
+}
+
+h1 {
+    font-family: 'Lobster', cursive;
+    font-size: 2.5em;
+}
+
+nav {
+    /*style de la barre de navigation avec un effet de glass morphisme comme chez les iPhones*/
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 50px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #0000006f;
+    border-radius: 10px 10px 0px 0px;
+
+    ul {
+
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 20px;
+
+        /* Pour espacer les éléments de la liste */
+        li {
+
+            a {
+                text-decoration: none;
+                color: white;
+                font-weight: bold;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: #ffcc00;
+                }
+            }
+        }
+    }
+
+}
+
+nav {
+    /* Style de la barre de navigation avec un effet de glass morphisme */
+    /* 1. Aligner le logo, les liens et la zone nav-actions sur une seule ligne */
+
+    padding: 15px 30px;
+
+    /* 2. L'EFFET GLASSMORPHISM */
+    background: rgba(255, 255, 255, 0.1);
+    /* Fond blanc semi-transparent */
+    backdrop-filter: blur(25px) saturate(180%);
+    /* Flou d'arrière-plan (l'effet verre) */
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    /* Compatibilité pour Safari */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    /* Bordure fine brillante */
+    box-shadow:
+        /* Ombre sous le nav pour l'élever */
+        0 15px 35px rgba(0, 0, 0, 0.2),
+        /* Reflet blanc en haut à l'intérieur (lumière qui frappe l'eau) */
+        inset 0 2px 2px rgba(255, 255, 255, 0.6),
+        /* Ombre sombre en bas à l'intérieur (épaisseur du liquide) */
+        inset 0 -2px 4px rgba(0, 0, 0, 0.15);
+
+    /* 3. Définir des coins arrondis si souhaité */
+    border-radius: 20px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 80%;
+}
+
+/* Le conteneur qui contient l'input et le bouton */
+.search-container {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.15);
+    /* Le fond glassmorphism ici */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 4px 8px 4px 15px;
+    /* Un peu d'espace autour */
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+/* Ton champ texte (on lui enlève ses bordures et son fond) */
+.glass-input {
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    color: white;
+    width: 100%;
+}
+
+/* Le bouton qui se retrouve à l'intérieur à droite */
+.search-btn {
+
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 5px;
+}
+
+/* Style du bouton à l'intérieur de la search-bar Flexbox */
+.search-btn {
+    background: transparent;
+    /* Fond légèrement blanc */
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 50px;
+    /* Bouton parfaitement rond */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    /* Pour que la lumière s'allume en douceur */
+
+    /* LA LUMIÈRE : halo fixe subtil */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Quand la souris passe sur le bouton */
+.search-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+
+    /* EFFET DE LUMIÈRE PLUS INTENSE */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8),
+        0 0 25px rgba(0, 198, 255, 0.6);
+    /* Touche de lumière bleue */
+
+    transform: scale(1.05);
+    /* Le bouton grandit très légèrement */
+}
+
+
+a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+li {
+    list-style-type: none;
+}
+
+.logo i {
+    font-size: 2rem;
+    color: #000;
+}
+
+/* 1. Aligner les éléments à l'intérieur de nav-actions */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    /* Aligne verticalement au centre */
+    gap: 15px;
+    /* Espace de 15px entre la langue et le bouton */
+}
+
+/* 2. Style du sélecteur de langue */
+/* Conteneur du menu */
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Le bouton principal */
+.dropdown-btn {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 8px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.dropdown-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* La boîte déroulante en VRAI GLASSMORPHISM */
+.dropdown-content {
+    display: none;
+    /* Cachée par défaut */
+    position: absolute;
+    top: 110%;
+    /* S'ouvre juste en dessous du bouton */
+    left: 0;
+    min-width: 100%;
+
+    /* Effet Liquid Glass */
+    background: rgba(255, 255, 255, 0.15);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+
+    overflow: hidden;
+    z-index: 100;
+}
+
+/* Liens à l'intérieur du menu */
+.dropdown-content a {
+    color: white;
+    padding: 10px 16px;
+    text-decoration: none;
+    display: block;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.dropdown-content a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Afficher le menu au survol de la souris */
+.custom-dropdown:hover .dropdown-content {
+    display: block;
+    background: rgba(0, 0, 0, 0.15);
+}
+
+/* Ligne de séparation en verre entre les options */
+.dropdown-content a:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Style pour harmoniser la taille des drapeaux */
+.flag-icon {
+    width: 20px;
+    height: auto;
+    border-radius: 3px;
+    /* Coins légèrement arrondis sur le drapeau */
+    object-fit: cover;
+    vertical-align: middle;
+}
+
+/* On s'assure que le contenu des liens est bien aligné */
+.dropdown-content a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* Espace entre le drapeau et le texte */
+    color: white;
+    padding: 10px 16px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+
+/* 3. Style du bouton "Se connecter" */
+.btn-login {
+    background: #ff88ff;
+    /* Couleur vive assortie à ton dégradé */
+    color: white;
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.btn-login:hover {
+    background: #d000df;
+    transform: translateY(-2px);
+    /* Petit effet de survol qui monte */
+}
