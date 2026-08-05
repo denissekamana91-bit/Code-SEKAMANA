@@ -106,9 +106,9 @@ nav {
     /* 2. L'EFFET GLASSMORPHISM */
     background: rgba(255, 255, 255, 0.1);
     /* Fond blanc semi-transparent */
-    backdrop-filter: blur(25px) saturate(180%);
+    backdrop-filter: blur(25px) saturate(200%);
     /* Flou d'arrière-plan (l'effet verre) */
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(200%);
     /* Compatibilité pour Safari */
     border: 1px solid rgba(255, 255, 255, 0.2);
     /* Bordure fine brillante */
@@ -123,6 +123,8 @@ nav {
     /* 3. Définir des coins arrondis si souhaité */
     border-radius: 20px;
 }
+
+
 
 .search-container {
     display: flex;
@@ -203,6 +205,17 @@ a {
 
 li {
     list-style-type: none;
+}
+
+/*adapter la barre de navigation*/
+nav {
+    flex-wrap: wrap;
+    gap: 15px;
+
+    .search-container {
+        flex: 1 1 200px;
+        max-width: 400px;
+    }
 }
 
 .logo i {
