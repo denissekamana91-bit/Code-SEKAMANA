@@ -1,20 +1,33 @@
+/* =========================================
+   ARRIÈRE-PLAN MESH AURORA ("EFFET WAA")
+   ========================================= */
 body {
-    /* Un dégradé lumineux et vibrant : Bleu Électrique -> Violet -> Magenta */
-    background: linear-gradient(135deg, #4a00e0 0%, #8e2de2 50%, #f000ff 100%);
-
-    /* Pour que le fond couvre tout l'écran, même si le contenu est court */
     min-height: 100vh;
     margin: 0;
 
-    /* Pour garder un fond fixe quand on défile la page */
+    /* Typographie moderne et couleur de texte bleu nuit ultra-lisible */
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #0f172a;
+
+    /* Base bleu ciel très doux */
+    background-color: #e0f2fe;
+
+    /* Mélange de 5 orbes de lumière colorées (Mesh Gradient) */
+    background-image:
+        radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.5) 0px, transparent 50%),
+        /* Bleu Cyan en haut à gauche */
+        radial-gradient(at 100% 0%, rgba(168, 85, 247, 0.35) 0px, transparent 50%),
+        /* Violet néon en haut à droite */
+        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.45) 0px, transparent 50%),
+        /* Bleu Océan en bas à droite */
+        radial-gradient(at 0% 100%, rgba(236, 72, 153, 0.25) 0px, transparent 50%),
+        /* Touche rose en bas à gauche */
+        radial-gradient(at 50% 50%, rgba(14, 165, 233, 0.25) 0px, transparent 50%);
+    /* Lumière centrale */
+
+    /* Reste fixe pendant qu'on défile */
     background-attachment: fixed;
-
-    /* Typographie propre et couleur du texte */
-    font-family: 'Times New Roman', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
-
-
-
+    background-size: cover;
 }
 
 header {
@@ -59,72 +72,88 @@ h1 {
     font-size: 2.5em;
 }
 
+/* =========================================
+   BARRE DE NAVIGATION - EAU ULTRA-CLAIRE (Style iOS Récent)
+   ========================================= */
+
 nav {
-    /*style de la barre de navigation avec un effet de glass morphisme comme chez les iPhones*/
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 50px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: #0000006f;
-    border-radius: 10px 10px 0px 0px;
-
-    ul {
-
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        gap: 20px;
-
-        /* Pour espacer les éléments de la liste */
-        li {
-
-            a {
-                text-decoration: none;
-                color: white;
-                font-weight: bold;
-                transition: color 0.3s ease;
-
-                &:hover {
-                    color: #ffcc00;
-                }
-            }
-        }
-    }
-
-}
-
-nav {
-    /* Style de la barre de navigation avec un effet de glass morphisme */
-    /* 1. Aligner le logo, les liens et la zone nav-actions sur une seule ligne */
-
+    flex-wrap: wrap;
+    gap: 15px;
     padding: 15px 30px;
+    position: sticky;
+    top: 15px;
+    margin: 0 15px 20px;
+    z-index: 100;
 
-    /* 2. L'EFFET GLASSMORPHISM */
-    background: rgba(255, 255, 255, 0.1);
-    /* Fond blanc semi-transparent */
-    backdrop-filter: blur(25px) saturate(200%);
-    /* Flou d'arrière-plan (l'effet verre) */
-    -webkit-backdrop-filter: blur(25px) saturate(200%);
-    /* Compatibilité pour Safari */
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    /* Bordure fine brillante */
+    /* Coins très arrondis façon Dock iOS */
+    border-radius: 40px;
+
+    /* 1. FOND TRÈS TRANSPARENT */
+    background: rgba(255, 255, 255, 0.05);
+
+    /* 2. FLOU MINIMAL (Le fond reste super net !) */
+    -webkit-backdrop-filter: blur(3px) saturate(110%);
+    backdrop-filter: blur(3px) saturate(110%);
+
+    /* 3. BORDURES INVISIBLES MAIS PRÉSENTES */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* 4. LA MAGIE APPLE : Les reflets internes */
     box-shadow:
-        /* Ombre sous le nav pour l'élever */
-        0 15px 35px rgba(0, 0, 0, 0.2),
-        /* Reflet blanc en haut à l'intérieur (lumière qui frappe l'eau) */
-        inset 0 2px 2px rgba(255, 255, 255, 0.6),
-        /* Ombre sombre en bas à l'intérieur (épaisseur du liquide) */
-        inset 0 -2px 4px rgba(0, 0, 0, 0.15);
-
-    /* 3. Définir des coins arrondis si souhaité */
-    border-radius: 20px;
+        0 15px 35px rgba(0, 0, 0, 0.15),
+        /* L'ombre qui fait flotter la barre */
+        inset 0 1px 2px rgba(255, 255, 255, 0.7),
+        /* Le reflet net et brillant sur le dessus (effet goutte) */
+        inset 0 -1px 2px rgba(255, 255, 255, 0.1);
+    /* Le petit reflet en dessous */
 }
 
+/* 5. LA SURFACE BRILLANTE (Le bombé de la goutte) */
+nav::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    /* Copie l'arrondi du nav */
+    z-index: -1;
 
+    /* Un dégradé de lumière blanc qui s'estompe très vite vers le bas */
+    background: linear-gradient(180deg,
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(255, 255, 255, 0) 30%);
+    pointer-events: none;
+}
+
+/* =========================================
+   STYLE DES LIENS (À l'intérieur de nav)
+   ========================================= */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Fait ressortir le texte sur le verre */
+}
+
+nav ul li a:hover {
+    color: #ff00005a;
+    boxk-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+}
 
 .search-container {
     display: flex;
@@ -207,16 +236,6 @@ li {
     list-style-type: none;
 }
 
-/*adapter la barre de navigation*/
-nav {
-    flex-wrap: wrap;
-    gap: 15px;
-
-    .search-container {
-        flex: 1 1 200px;
-        max-width: 400px;
-    }
-}
 
 .logo i {
     font-size: 2rem;
@@ -344,7 +363,138 @@ nav {
 }
 
 .btn-login:hover {
-    background: #d000df;
+    background: #000000;
     transform: translateY(-2px);
     /* Petit effet de survol qui monte */
+}
+
+.buttons-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 20px;
+
+}
+
+.btn-solid {
+    background: #ff88ff;
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    backdrop-filter: blur(10px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.btn-solid:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    /* Petit effet de survol qui monte */
+}
+
+.btn-glass {
+    background: #123456;
+    -webkit-backdrop-filter: blur(10px) saturate(180%);
+    backdrop-filter: blur(10px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.btn-glass:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    /* Petit effet de survol qui monte */
+}
+
+.class-niv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+
+}
+
+/* =========================================
+   BARRES DE SOUS-NAVIGATION (CLASSES & MATIÈRES)
+   ========================================= */
+
+.classification {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    margin: 40px auto;
+    width: 90%;
+    max-width: 900px;
+}
+
+.sub-nav-group {
+    text-align: center;
+    border: #000 solid 1px;
+    border-radius: 20px;
+}
+
+.Title {
+    margin-bottom: 12px;
+    font-size: 1.6em;
+    font-family: 'Lobster', cursive;
+}
+
+/* LA BARRE DE NAVIGATION DES ONGLETS */
+.sub-nav {
+    display: inline-flex;
+    /* Garde la barre ajustée au contenu */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 12px;
+
+    /* Style verre pour la barre d'onglets */
+    background: rgba(255, 255, 255, 0.08);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+    backdrop-filter: blur(12px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Les onglets / liens à l'intérieur de la sous-barre */
+.sub-nav .btn-class {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    color: white;
+    padding: 8px 18px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+/* Effet au survol des onglets */
+.sub-nav .btn-class:hover {
+
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
+}
+
+/* Onglet actif (optionnel si tu veux marquer la classe sélectionnée) */
+.sub-nav .btn-class.active {
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#class-buttons .btn-class {
+    border: none;
 }
