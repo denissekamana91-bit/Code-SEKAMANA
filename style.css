@@ -85,7 +85,7 @@ nav {
     padding: 15px 30px;
     position: sticky;
     top: 15px;
-    margin: 0 15px 20px;
+    margin: 0 15px 10px;
     z-index: 100;
 
     /* Coins très arrondis façon Dock iOS */
@@ -152,7 +152,7 @@ nav ul li a {
 
 nav ul li a:hover {
     color: #ff00005a;
-    boxk-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
 }
 
 .search-container {
@@ -440,8 +440,7 @@ li {
 
 .sub-nav-group {
     text-align: center;
-    border: #000 solid 1px;
-    border-radius: 20px;
+
 }
 
 .Title {
@@ -497,4 +496,95 @@ li {
 
 #class-buttons .btn-class {
     border: none;
+}
+
+/* =========================================
+   SECTION GRILLE ET CARTES DE CATÉGORIES
+   ========================================= */
+
+.resources-section {
+    width: 90%;
+    max-width: 1100px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.resources-section .Title {
+    font-size: 2em;
+    font-family: 'Lobster', cursive;
+    color: #0f172a;
+    margin-bottom: 25px;
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.6);
+}
+
+/* Disposition en grille responsive (s'adapte à tous les écrans) */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    padding: 10px;
+}
+
+/* Style Glassmorphism pour les cartes */
+.glass-card {
+    background: rgba(255, 255, 255, 0.45);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    backdrop-filter: blur(12px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.05),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px 20px;
+    text-decoration: none;
+    color: #0f172a;
+    /* Texte foncé pour un contraste optimal */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Style des icônes FontAwesome dans les cartes */
+.category-card i {
+    font-size: 2.6rem;
+    color: #2563eb;
+    /* Bleu vif assorti aux boutons du site */
+    margin-bottom: 15px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Style du titre h3 de la carte */
+.category-card h3 {
+    margin: 8px 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* Style du texte p descriptif */
+.category-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #475569;
+    /* Gris-bleu doux pour la description */
+    line-height: 1.4;
+}
+
+/* Effet au survol (Hover) : la carte monte et l'icône grandit */
+.category-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.75);
+    border-color: rgba(37, 99, 235, 0.4);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, 0.15);
+}
+
+.category-card:hover i {
+    transform: scale(1.15);
+    color: #1d4ed8;
 }
