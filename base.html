@@ -33,12 +33,12 @@
       <li><a href="/base.html" class="nav-link">Accueil</a></li>
       <li><a href="#" class="nav-link">Catégories</a></li>
       <li><a href="#" class="nav-link">Contribuer</a></li>
-      <li><a href="#" class="nav-link">Compte</a></li>
+
       <li><a href="#Dernier" class="nav-link">À propos</a></li>
     </ul>
     <div class="nav-actions">
       <div class="custom-dropdown">
-        <button class="dropdown-btn" onclick="toggleLangMenu(event)">
+        <button class="dropdown-btn">
           <img src="https://flagcdn.com/w20/fr.png" alt="France" class="flag-icon">
           <span>FR</span>
           <i class="fas fa-chevron-down"></i>
@@ -56,6 +56,13 @@
         </div>
       </div>
 
+      <label class="theme-switch" for="theme-toggle" title="Changer le thème">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider round">
+          <i class="fas fa-sun sun-icon"></i>
+          <i class="fas fa-moon moon-icon"></i>
+        </span>
+      </label>
       <a href="connexion.html" class="btn-login">Se connecter</a>
     </div>
 
@@ -98,30 +105,25 @@
 
   <section class="classification">
 
-    <div class="sub-nav-group">
-      <h2 class="Title">Classes</h2>
-      <div class="sub-nav" id="class-buttons">
-        <a href="#" class="btn-class" data-i18n="class_2nde">2nde</a>
-        <a href="#" class="btn-class" data-i18n="class_1ere">1ère</a>
-        <a href="#" class="btn-class" data-i18n="class_terminale">Terminale</a>
-      </div>
-    </div>
+
 
     <div class="sub-nav-group">
       <h2 class="Title">Matières</h2>
       <div class="sub-nav">
-        <a href="#" class="btn-class" data-i18n="subject_math">Mathématiques</a>
-        <a href="#" class="btn-class" data-i18n="subject_physique">Physique</a>
-        <a href="#" class="btn-class" data-i18n="subject_svt">SVT</a>
-        <a href="#" class="btn-class" data-i18n="subject_francais">Français</a>
-        <a href="#" class="btn-class" data-i18n="subject_anglais">Anglais</a>
-        <a href="#" class="btn-class" data-i18n="subject_espagnol">Espagnol</a>
-        <a href="#" class="btn-class" data-i18n="subject_allemand">Allemand</a>
-        <a href="#" class="btn-class" data-i18n="subject_histoire_geographie">Histoire-Géographie</a>
-        <a href="#" class="btn-class" data-i18n="subject_education_civique">Éducation Civique et Morale</a>
-        <a href="#" class="btn-class" data-i18n="subject_philosophie">Philosophie</a>
-        <a href="#" class="btn-class" data-i18n="subject_musique">Musique</a>
-        <a href="#" class="btn-class" data-i18n="subject_dessin">Dessin</a>
+        <a href="#" class="btn-class" data-i18n="subject_math"><i class="fas fa-square-root-variable"></i>
+          Mathématiques</a>
+        <a href="#" class="btn-class" data-i18n="subject_physique"><i class="fas fa-atom"></i> Physique</a>
+        <a href="#" class="btn-class" data-i18n="subject_svt"><i class="fas fa-dna"></i> SVT</a>
+        <a href="#" class="btn-class" data-i18n="subject_francais"><i class="fas fa-pen-nib"></i> Français</a>
+        <a href="#" class="btn-class" data-i18n="subject_anglais"><i class="fas fa-language"></i> Anglais</a>
+        <a href="#" class="btn-class" data-i18n="subject_espagnol"><i class="fas fa-bullhorn"></i> Espagnol</a>
+        <a href="#" class="btn-class" data-i18n="subject_allemand"><i class="fas fa-comment-dots"></i> Allemand</a>
+        <a href="#" class="btn-class" data-i18n="subject_histoire_geographie"><i class="fas fa-globe-africa"></i>
+          Histoire-Géo</a>
+        <a href="#" class="btn-class" data-i18n="subject_education_civique"><i class="fas fa-balance-scale"></i> ECM</a>
+        <a href="#" class="btn-class" data-i18n="subject_philosophie"><i class="fas fa-brain"></i> Philosophie</a>
+        <a href="#" class="btn-class" data-i18n="subject_musique"><i class="fas fa-music"></i> Musique</a>
+        <a href="#" class="btn-class" data-i18n="subject_dessin"><i class="fas fa-palette"></i> Dessin</a>
       </div>
       </ul>
 
@@ -218,7 +220,7 @@
     <p>&copy; 2026 Série C4 - Excellence Scientifique. Tous droits réservés.</p>
   </footer>
 
-
+  <script src="theme.js"></script>
 </body>
 
 </html>
