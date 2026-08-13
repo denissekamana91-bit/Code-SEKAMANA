@@ -86,8 +86,9 @@ nav {
     gap: 15px;
     padding: 15px 30px;
     position: sticky;
-    top: 15px;
-    margin: 0 15px 10px;
+    top: 10px;
+    margin: 10px 10px;
+    bottom: 10px;
     z-index: 100;
 
     /* Coins très arrondis façon Dock iOS */
@@ -693,23 +694,25 @@ body.dark-mode {
     color: #f1f5f9;
 }
 
+body.dark-mode .logo i {
+    color: #fff;
+}
+
 body.dark-mode .Title,
 body.dark-mode .resources-section .Title,
-body.dark-mode #Titre-de-guide,
+body.dark-mode #about,
 body.dark-mode .category-card h3 {
     color: #f8fafc;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-body.dark-mode #help,
-body.dark-mode .Apropos,
+body.dark-mode .about-section,
 body.dark-mode .category-card p {
     color: #94a3b8;
 }
 
 /* Cartes adaptées pour bien ressortir sur le fond sombre */
-body.dark-mode .glass-card,
-body.dark-mode .sub-nav-group {
+body.dark-mode .glass-card {
     background: rgba(30, 41, 59, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -738,4 +741,622 @@ body.dark-mode .sub-nav .btn-class:hover {
     background: rgba(56, 189, 248, 0.2);
     color: #38bdf8;
     border-color: rgba(56, 189, 248, 0.4);
+}
+
+body.dark-mode .sub-nav-group {
+    border: none;
+}
+
+/* =========================================
+   CARROUSEL HORIZONTAL DES ÉPREUVES
+   ========================================= */
+
+.epreuve-preview-section {
+    width: 90%;
+    max-width: 1200px;
+    margin: 60px auto;
+}
+
+/* Header du Carrousel */
+.carousel-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.carousel-arrow {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    color: #0f172a;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.carousel-arrow:hover {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    transform: scale(1.1);
+}
+
+.subject-indicator {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #0f172a;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    min-width: 220px;
+    text-align: center;
+}
+
+/* Zone du Carrousel (Viewport) */
+.carousel-viewport {
+    width: 100%;
+    overflow: hidden;
+    /* Masque les matières non actives */
+    border-radius: 25px;
+}
+
+/* Rail de défilement (Track) */
+.carousel-track {
+    display: flex;
+    /* Animation de glissement horizontal ultra-fluide */
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 100%;
+}
+
+/* Chaque Slide de matière prend 100% de la largeur du conteneur */
+.subject-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+/* Grille des 5 cartes d'épreuves par matière */
+.epreuves-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* Cartes d'Épreuves */
+.epreuve-card {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    transition: all 0.3s ease;
+}
+
+.epreuve-card:hover {
+    transform: translateY(-6px);
+}
+
+/* Badges (BAC, Devoir, Composition) */
+.badge {
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.badge.bac {
+    background: rgba(37, 99, 235, 0.15);
+    color: #2563eb;
+}
+
+.badge.dev {
+    background: rgba(168, 85, 247, 0.15);
+    color: #9333ea;
+}
+
+.badge.comp {
+    background: rgba(16, 185, 129, 0.15);
+    color: #059669;
+}
+
+.epreuve-card h4 {
+    margin: 0 0 8px 0;
+    font-size: 1.05rem;
+    color: #0f172a;
+    line-height: 1.3;
+}
+
+.epreuve-card p {
+    margin: 0 0 15px 0;
+    font-size: 0.85rem;
+    color: #475569;
+}
+
+.btn-epreuve {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 8px 14px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.btn-epreuve:hover {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+/* Adaptations pour le Mode Sombre (Dark Mode) */
+body.dark-mode .carousel-arrow,
+body.dark-mode .subject-indicator {
+    background: rgba(30, 41, 59, 0.6);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #f8fafc;
+}
+
+body.dark-mode .carousel-arrow:hover {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+body.dark-mode .epreuve-card h4 {
+    color: #f8fafc;
+}
+
+body.dark-mode .epreuve-card p {
+    color: #94a3b8;
+}
+
+body.dark-mode .badge.bac {
+    background: rgba(56, 189, 248, 0.2);
+    color: #38bdf8;
+}
+
+body.dark-mode .badge.dev {
+    background: rgba(192, 38, 211, 0.2);
+    color: #e879f9;
+}
+
+body.dark-mode .badge.comp {
+    background: rgba(52, 211, 153, 0.2);
+    color: #34d399;
+}
+
+body.dark-mode .btn-epreuve {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+}
+
+body.dark-mode .btn-epreuve:hover {
+    background: #38bdf8;
+    color: #0f172a;
+}
+
+/* =========================================
+   SECTION À PROPOS (VERSION COMPACTE & CENTRÉE)
+   ========================================= */
+
+.about-section {
+    /* Centrage au milieu du site avec une petite largeur */
+    max-width: 650px;
+    margin: 40px auto;
+    padding: 22px 28px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+.about-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 15px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.about-title {
+    margin: 0 0 10px 0;
+    font-size: 1.4rem;
+    font-family: 'Lobster', cursive;
+    color: #0f172a;
+}
+
+.about-text {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: #334155;
+}
+
+.about-text strong {
+    color: #2563eb;
+    font-weight: 700;
+}
+
+/* --- ADAPTATION MODE SOMBRE (DARK MODE) --- */
+body.dark-mode .about-badge {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+}
+
+body.dark-mode .about-title {
+    color: #f8fafc;
+}
+
+body.dark-mode .about-text {
+    color: #cbd5e1;
+}
+
+body.dark-mode .about-text strong {
+    color: #38bdf8;
+}
+
+/* =========================================
+   PIED DE PAGE (FOOTER PROFESSIONNEL)
+   ========================================= */
+
+.main-footer {
+    margin-top: 80px;
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+    color: #1e293b;
+    padding-top: 50px;
+}
+
+.footer-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 0.8fr 0.8fr 1.2fr;
+    gap: 40px;
+    padding-bottom: 40px;
+}
+
+.footer-col h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 0;
+    margin-bottom: 18px;
+}
+
+.footer-logo {
+    font-family: 'Lobster', cursive;
+    font-size: 1.8rem;
+    color: #2563eb;
+    margin: 0 0 12px 0;
+}
+
+.footer-desc {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #475569;
+    margin-bottom: 16px;
+}
+
+.footer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(37, 99, 235, 0.1);
+    color: #2563eb;
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+/* Liens du Footer */
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.footer-links a {
+    color: #475569;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+}
+
+.footer-links a i {
+    font-size: 0.75rem;
+    color: #2563eb;
+    transition: transform 0.25s ease;
+}
+
+.footer-links a:hover {
+    color: #2563eb;
+    transform: translateX(4px);
+}
+
+.footer-links a:hover i {
+    transform: translateX(2px);
+}
+
+/* Section Contact & Bouton WhatsApp */
+.footer-contact p {
+    font-size: 0.9rem;
+    color: #475569;
+    margin-bottom: 14px;
+    line-height: 1.5;
+}
+
+.contact-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.88rem;
+    margin-bottom: 16px;
+    word-break: break-all;
+    transition: color 0.2s ease;
+}
+
+.contact-item:hover {
+    color: #1d4ed8;
+}
+
+.whatsapp-box {
+    margin-top: 10px;
+}
+
+.whatsapp-box span {
+    display: block;
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #25d366;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.88rem;
+    padding: 9px 16px;
+    border-radius: 25px;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    transition: all 0.3s ease;
+}
+
+.whatsapp-btn:hover {
+    background: #1da851;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.45);
+}
+
+/* Barre de Copyright Basse */
+.footer-bottom {
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 20px 0;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.footer-bottom-content {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+.footer-bottom-content p {
+    margin: 0;
+}
+
+.made-with i {
+    color: #ef4444;
+}
+
+/* --- ADAPTATION MODE SOMBRE (DARK MODE) --- */
+body.dark-mode .main-footer {
+    background: rgba(15, 23, 42, 0.7);
+    border-top-color: rgba(255, 255, 255, 0.1);
+    color: #f1f5f9;
+}
+
+body.dark-mode .footer-col h4 {
+    color: #f8fafc;
+}
+
+body.dark-mode .footer-logo {
+    color: #38bdf8;
+}
+
+body.dark-mode .footer-desc,
+body.dark-mode .footer-links a,
+body.dark-mode .footer-contact p,
+body.dark-mode .whatsapp-box span {
+    color: #94a3b8;
+}
+
+body.dark-mode .footer-badge {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+}
+
+body.dark-mode .footer-links a:hover {
+    color: #38bdf8;
+}
+
+body.dark-mode .footer-links a i {
+    color: #38bdf8;
+}
+
+body.dark-mode .contact-item {
+    color: #38bdf8;
+}
+
+body.dark-mode .footer-bottom {
+    border-top-color: rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.5);
+}
+
+body.dark-mode .footer-bottom-content {
+    color: #94a3b8;
+}
+
+/* --- RESPONSIVITÉ MOBILES ET TABLETTES --- */
+@media (max-width: 900px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 550px) {
+    .footer-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Le menu déroulant est caché par défaut */
+.custom-dropdown .dropdown-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 8px;
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    display: none; 
+    z-index: 1000;
+    min-width: 130px;
+}
+
+/* Il s'affiche uniquement si la classe .show est activée par JavaScript au clic */
+.custom-dropdown.show .dropdown-content {
+    display: block;
+}
+
+/* =========================================
+   FENÊTRE MODALE (APERÇU PDF)
+   ========================================= */
+.pdf-modal {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.85); /* Fond sombre semi-transparent */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.pdf-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    height: 85vh; /* Prend 85% de la hauteur de l'écran */
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    animation: fadeInScale 0.3s ease-out;
+}
+
+/* Le bouton rouge pour fermer */
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: #ef4444;
+    cursor: pointer;
+    z-index: 2001;
+    background: rgba(255, 255, 255, 0.95);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+}
+
+.close-modal:hover {
+    transform: scale(1.1);
+}
+
+#pdf-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* Animation d'apparition douce */
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Adaptation Mode Sombre pour le contour du modal */
+body.dark-mode .modal-content {
+    background: #1e293b;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }

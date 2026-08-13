@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ nom_categorie|capitalize }} - Épreuves Série C4</title>
+
+  <link rel="icon" type="image/png" href="https://th.bing.com/th/id/R.912ca27104d32600072db4ba5ab58853?rik=IH2q45a%2flWh9gA&pid=ImgRaw&r=0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <div style="max-width: 1200px; margin: 30px auto; padding: 0 20px;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;">
+      <a href="{{ url_for('home') }}" class="btn-class" style="text-decoration: none; padding: 10px 18px; border-radius: 20px; background: rgba(255,255,255,0.2);">
+        <i class="fas fa-arrow-left"></i> Accueil
+      </a>
+      <h1 class="Title" style="margin: 0;">Espace : {{ nom_categorie|upper }}</h1>
+      <a href="{{ url_for('ajouter_page') }}" class="btn-class" style="text-decoration: none; padding: 10px 18px; border-radius: 20px; background: #2563eb; color: white;">
+        <i class="fas fa-plus"></i> Ajouter une épreuve
+      </a>
+    </div>
+
+    <div class="cards-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;">
+      {% for epreuve in epreuves %}
+        <div class="category-card" style="align-items: flex-start; text-align: left; background: rgba(255,255,255,0.45); backdrop-filter: blur(12px); border-radius: 20px; padding: 25px;">
+          <div style="display: flex; justify-content: space-between; width: 100%; margin-bottom: 12px; align-items: center;">
+            <span class="badge" style="background: rgba(37,99,235,0.15); color: #2563eb; padding: 5px 12px; border-radius: 12px; font-weight: bold; font-size: 0.85rem;">
+              {{ epreuve.badge }}
+            </span>
+            <span style="font-size: 0.85rem; color: #64748b; font-weight: 600;">{{ epreuve.annee }}</span>
+          </div>
+
+          <h3 style="margin: 0 0 10px 0; font-size: 1.2rem;">{{ epreuve.titre }}</h3>
+          <p style="font-size: 0.9rem; color: #475569; flex-grow: 1; margin-bottom: 20px;">{{ epreuve.description }}</p>
+
+          {% if epreuve.fichier_pdf %}
+            <div style="display: flex; gap: 10px; width: 100%; margin-top: auto;">
+              
+              <button class="btn-preview" data-pdf-url="{{ url_for('static', filename='uploads/' + epreuve.fichier_pdf) }}" style="flex: 1; padding: 10px 0; background: #38bdf8; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.3s;">
+                <i class="fas fa-eye"></i> Aperçu
+              </button>
+
+              <a href="{{ url_for('telecharger_fichier', nom_fichier=epreuve.fichier_pdf) }}" class="btn-class" style="flex: 1; text-align: center; text-decoration: none; padding: 10px 0; background: #2563eb; color: white; border-radius: 12px; font-weight: bold; transition: 0.3s;">
+                <i class="fas fa-download"></i> Télécharger
+              </a>
+              
+            </div>
+          {% endif %}
+        </div>
+      {% else %}
+        <div style="grid-column: 1 / -1; text-align: center; padding: 50px 20px;">
+          <i class="fas fa-folder-open" style="font-size: 3rem; color: #94a3b8; margin-bottom: 15px;"></i>
+          <h3>Aucune épreuve trouvée dans ce domaine pour le moment.</h3>
+          <p>Soyez le premier à en ajouter une !</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="pdf-modal" class="pdf-modal">
+      <div class="modal-content">
+        <span class="close-modal"><i class="fas fa-times"></i></span>
+        <iframe id="pdf-iframe" src="" frameborder="0"></iframe>
+      </div>
+    </div>
+
+  <script src="{{ url_for('static', filename='theme.js') }}"></script>
+</body>
+
+</html>
