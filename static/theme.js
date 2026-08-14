@@ -422,3 +422,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// 1. Gestion des menus déroulants au clic
+    const langBtn = document.getElementById('current-lang-btn');
+    const langMenu = document.getElementById('langMenu');
+    
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsMenu = document.getElementById('settings-menu');
+
+    // Ouvrir/Fermer le menu Langue
+    if (langBtn && langMenu) {
+        langBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            langMenu.classList.toggle('show');
+            if (settingsMenu) settingsMenu.classList.remove('show'); // Ferme l'autre menu
+        });
+    }
+
+    // Ouvrir/Fermer le menu Paramètres
+    if (settingsBtn && settingsMenu) {
+        settingsBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            settingsMenu.classList.toggle('show');
+            if (langMenu) langMenu.classList.remove('show'); // Ferme l'autre menu
+        });
+    }
+
+    // Fermer tous les menus si on clique ailleurs sur la page
+    document.addEventListener('click', () => {
+        if (langMenu) langMenu.classList.remove('show');
+        if (settingsMenu) settingsMenu.classList.remove('show');
+    });

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Toutes les Épreuves - Série C4</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    .explorer-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .subject-section {
+      margin-bottom: 50px;
+    }
+    .subject-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px solid rgba(37, 99, 235, 0.2);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+    .subject-header h2 {
+      font-size: 1.6rem;
+      color: #1e293b;
+      margin: 0;
+    }
+    .epreuves-grid-full {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    .btn-action {
+      flex: 1;
+      padding: 9px 0;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 0.85rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+    }
+    .btn-preview-style { background: #38bdf8; color: white; }
+    .btn-download-style { background: #2563eb; color: white; }
+    .btn-action:hover { opacity: 0.9; transform: translateY(-2px); }
+  </style>
+</head>
+<body>
+
+  <div style="background: rgba(255,255,255,0.8); backdrop-filter: blur(10px); padding: 15px 30px; border-bottom: 1fr solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+    <a href="{{ url_for('home') }}" style="text-decoration: none; font-weight: bold; color: #2563eb; display: flex; align-items: center; gap: 8px;">
+      <i class="fas fa-arrow-left"></i> Retour à l'accueil
+    </a>
+    <h1 style="margin: 0; font-size: 1.4rem; color: #0f172a;">📚 Bibliothèque Complète des Épreuves</h1>
+    <a href="{{ url_for('ajouter_page') }}" style="background: #2563eb; color: white; padding: 8px 16px; border-radius: 10px; text-decoration: none; font-weight: bold;">
+      <i class="fas fa-plus"></i> Ajouter
+    </a>
+  </div>
+
+  <div class="explorer-container">
+
+    {% for key_mat, nom_mat in matieres_noms.items() %}
+      {% set epreuves_mat = epreuves_par_matiere.get(key_mat, []) %}
+      
+      <div class="subject-section">
+        <div class="subject-header">
+          <i class="fas fa-book-open" style="color: #2563eb; font-size: 1.4rem;"></i>
+          <h2>{{ nom_mat }}</h2>
+          <span style="background: rgba(37,99,235,0.1); color: #2563eb; padding: 2px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: bold;">
+            {{ epreuves_mat|length }} épreuve(s)
+          </span>
+        </div>
+
+        {% if epreuves_mat %}
+          <div class="epreuves-grid-full">
+            {% for epreuve in epreuves_mat %}
+              <div class="glass-card" style="padding: 20px; border-radius: 16px; background: rgba(255,255,255,0.7); border: 1px solid rgba(255,255,255,0.4); display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span style="background: rgba(37,99,235,0.15); color: #2563eb; padding: 3px 8px; border-radius: 8px; font-weight: bold; font-size: 0.8rem;">
+                      {{ epreuve.badge }}
+                    </span>
+                    <span style="color: #64748b; font-size: 0.85rem; font-weight: bold;">{{ epreuve.annee }}</span>
+                  </div>
+                  <h3 style="margin: 0 0 8px 0; font-size: 1.1rem; color: #0f172a;">{{ epreuve.titre }}</h3>
+                  <p style="color: #475569; font-size: 0.9rem; margin-bottom: 15px;">{{ epreuve.description }}</p>
+                </div>
+
+                {% if epreuve.fichier_pdf %}
+                  <div class="card-actions">
+                    <button class="btn-action btn-preview-style btn-preview" data-pdf-url="{{ url_for('static', filename='uploads/' + epreuve.fichier_pdf) }}">
+                      <i class="fas fa-eye"></i> Aperçu
+                    </button>
+                    <a href="{{ url_for('telecharger_fichier', nom_fichier=epreuve.fichier_pdf) }}" class="btn-action btn-download-style">
+                      <i class="fas fa-download"></i> PDF
+                    </a>
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p style="color: #94a3b8; font-style: italic;">Aucune épreuve disponible pour le moment dans cette matière.</p>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+  </div>
+
+  <div id="pdf-modal" class="pdf-modal">
+    <div class="modal-content">
+      <span class="close-modal"><i class="fas fa-times"></i></span>
+      <iframe id="pdf-iframe" src="" frameborder="0"></iframe>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='theme.js') }}"></script>
+</body>
+</html>
