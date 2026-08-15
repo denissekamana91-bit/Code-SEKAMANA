@@ -32,11 +32,20 @@ def obtenir_epreuves_par_filtre(filtre):
     filtre = filtre.lower()
     return [
         e for e in epreuves_db 
-        if e['matiere'].lower() == filtre or e['categorie'].lower() == filtre
+        if e.get('matiere', '').lower() == filtre or e.get('categorie', '').lower() == filtre
     ]
 
 def ajouter_epreuve(titre, description, matiere, categorie, badge, annee, fichier_pdf=""):
     nouvel_id = len(epreuves_db) + 1
+    
+    # Gestion sécurisée de l'année optionnelle
+    annee_value = "N/A"
+    if annee and str(annee).strip():
+        try:
+            annee_value = int(annee)
+        except ValueError:
+            annee_value = str(annee).strip()
+
     nouvelle_epreuve = {
         "id": nouvel_id,
         "titre": titre,
@@ -44,7 +53,7 @@ def ajouter_epreuve(titre, description, matiere, categorie, badge, annee, fichie
         "matiere": matiere,
         "categorie": categorie,
         "badge": badge,
-        "annee": int(annee),
+        "annee": annee_value,
         "fichier_pdf": fichier_pdf
     }
     epreuves_db.append(nouvelle_epreuve)

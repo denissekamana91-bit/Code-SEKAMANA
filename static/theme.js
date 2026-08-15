@@ -119,6 +119,11 @@ const translations = {
         "footer_whatsapp": "Partagez vos épreuves directement :",
         "footer_rights": "&copy; 2026 <strong>Série C4 - Excellence Scientifique</strong>. Tous droits réservés.",
         "footer_made_with": "Fait avec <i class='fas fa-heart'></i> pour l'excellence éducative"
+
+      
+
+      
+      
     },
     en: {
         // Navigation & Header
@@ -236,8 +241,14 @@ const translations = {
         "footer_whatsapp": "Share your exams directly:",
         "footer_rights": "&copy; 2026 <strong>Series C4 - Scientific Excellence</strong>. All rights reserved.",
         "footer_made_with": "Made with <i class='fas fa-heart'></i> for educational excellence"
+
+
+      
+
+      
     }
 };
+
 
 /* --- LOGIQUE DE TRADUCTION & GESTION PROPRE DU MENU CLiquable --- */
 document.addEventListener('DOMContentLoaded', () => {

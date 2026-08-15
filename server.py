@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, jsonify
 from werkzeug.utils import secure_filename
 from stock import obtenir_toutes_epreuves, obtenir_epreuves_par_filtre, ajouter_epreuve
 
@@ -38,12 +38,11 @@ def home():
 
     return render_template('base.html', epreuves_par_matiere=epreuves_par_matiere)
 
-# 2. NOUVEAU : Page "Explorer toutes les épreuves" (Ranger par matières)
+# 2. Page "Explorer toutes les épreuves"
 @app.route('/explorer')
 def explorer():
     toutes_epreuves = obtenir_toutes_epreuves()
     
-    # Organisation par matière
     epreuves_par_matiere = {cle: [] for cle in MATIERES_NOMS.keys()}
     for epreuve in toutes_epreuves:
         mat = epreuve.get('matiere', '').lower().strip()
@@ -56,7 +55,7 @@ def explorer():
 
     return render_template('explorer.html', epreuves_par_matiere=epreuves_par_matiere, matieres_noms=MATIERES_NOMS)
 
-# 3. NOUVEAU : Route de recherche dans le stock
+# 3. Route de recherche dans le stock
 @app.route('/recherche')
 def recherche():
     query = request.args.get('q', '').strip()
@@ -66,7 +65,6 @@ def recherche():
     toutes = obtenir_toutes_epreuves()
     q_lower = query.lower()
     
-    # Recherche dans le titre, la description, la matière, le badge et l'année
     resultats = []
     for ep in toutes:
         titre = str(ep.get('titre', '')).lower()
@@ -105,13 +103,51 @@ def ajouter():
     ajouter_epreuve(titre, description, matiere, categorie, badge, annee, filename)
     return redirect(url_for('home'))
 
-# 6. Affichage d'un domaine / catégorie
+# 6. ROUTE API ASSISTANT IA
+@app.route('/api/ia_assistant', methods=['POST'])
+def ia_assistant():
+    try:
+        data = request.get_json() or {}
+        titre = data.get('titre', '').strip()
+        matiere = data.get('matiere', '').strip()
+        texte_saisi = data.get('texte_saisi', '').strip()
+
+        nom_matiere = MATIERES_NOMS.get(matiere, "cette matière")
+
+        # Tentative d'appel à l'API Gemini si configurée
+        api_key = os.environ.get("GEMINI_API_KEY")
+        if api_key:
+            try:
+                import google.generativeai as genai
+                genai.configure(api_key=api_key)
+                model = genai.GenerativeModel('gemini-2.5-flash')
+                prompt = (
+                    f"Tu es un assistant pédagogique. Rédige une description claire (2 phrases) pour cette épreuve:\n"
+                    f"Titre: {titre}\nMatière: {nom_matiere}\nTexte: {texte_saisi}"
+                )
+                response = model.generate_content(prompt)
+                if response and response.text:
+                    return jsonify({"suggestion": response.text.strip()})
+            except Exception as e:
+                print("Erreur API Gemini:", e)
+
+        # Générateur dynamique de secours sans clé API
+        if texte_saisi:
+            suggestion = f"{texte_saisi} — Document d'évaluation en {nom_matiere} comprenant les exercices officiels et un corrigé indicatif."
+        else:
+            suggestion = f"Épreuve d'évaluation officielle en {nom_matiere} pour la préparation aux examens de la Série C4, avec exercices et corrigés."
+
+        return jsonify({"suggestion": suggestion})
+    except Exception as err:
+        return jsonify({"suggestion": "Épreuve d'évaluation officielle avec exercices et sujets d'entraînement."}), 200
+
+# 7. Affichage d'un domaine / catégorie
 @app.route('/domaine/<nom>')
 def voir_domaine(nom):
     epreuves_filtres = obtenir_epreuves_par_filtre(nom)
     return render_template('categorie.html', nom_categorie=nom, epreuves=epreuves_filtres)
 
-# 7. Téléchargement direct
+# 8. Téléchargement direct
 @app.route('/telecharger/<nom_fichier>')
 def telecharger_fichier(nom_fichier):
     return send_from_directory(app.config['UPLOAD_FOLDER'], nom_fichier, as_attachment=True)
