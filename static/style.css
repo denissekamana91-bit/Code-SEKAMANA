@@ -30,6 +30,7 @@ body {
     background-size: cover;
     /* Transition ultra fluide pour le changement de thème */
     transition: background-color 0.6s ease, color 0.6s ease;
+
 }
 
 header {
@@ -112,6 +113,9 @@ nav {
         /* Le reflet net et brillant sur le dessus (effet goutte) */
         inset 0 -1px 2px rgba(255, 255, 255, 0.1);
     /* Le petit reflet en dessous */
+}
+.nav-links{
+  flex-wrap:wrap;
 }
 
 /* 5. LA SURFACE BRILLANTE (Le bombé de la goutte) */
