@@ -1389,6 +1389,7 @@ body.dark-mode .modal-content {
 .nav-dropdown-menu {
     display: none;
     position: absolute;
+    z-index:9999;
     top: 150%;
     left: 50%;
     transform: translateX(-50%);

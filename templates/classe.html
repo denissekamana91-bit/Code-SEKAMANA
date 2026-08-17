@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fichiers - {{ nom_classe }}</title>
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Styles pour la présentation des cartes */
+    .header-classe {
+      text-align: center;
+      margin: 40px 0;
+    }
+    .header-classe h1 {
+      font-family: 'Lobster', cursive;
+      font-size: 2.5rem;
+      color: #0f172a;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 25px;
+      padding: 20px 0;
+    }
+    .card-epreuve {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+    .card-epreuve:hover {
+      transform: translateY(-5px);
+    }
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #2563eb;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+    <a href="{{ url_for('home') }}" style="color: #2563eb; text-decoration: none; font-weight: bold;">
+      <i class="fas fa-arrow-left"></i> Retour à l'accueil
+    </a>
+
+    <div class="header-classe">
+      <h1>📚 Bibliothèque de la {{ nom_classe }}</h1>
+      <p>Tous les documents partagés spécifiquement pour cette classe.</p>
+    </div>
+
+    {% if epreuves|length == 0 %}
+      <div style="text-align: center; padding: 50px; background: #f8fafc; border-radius: 16px;">
+        <i class="fas fa-folder-open" style="font-size: 3rem; color: #94a3b8; margin-bottom: 15px;"></i>
+        <h2>Aucun document disponible</h2>
+        <p>Il n'y a pas encore d'épreuves partagées pour la {{ nom_classe }}.</p>
+        <br>
+        <a href="{{ url_for('ajouter_page') }}" class="btn-download">Soyez le premier à partager !</a>
+      </div>
+    {% else %}
+      <div class="grid-container">
+        {% for epreuve in epreuves %}
+          <div class="card-epreuve">
+            <h3 style="margin-top: 0; color: #1e293b;">{{ epreuve.titre }}</h3>
+            
+            <p><strong><i class="fas fa-book"></i> Matière:</strong> {{ epreuve.matiere|capitalize }}</p>
+            <p><strong><i class="fas fa-tag"></i> Type:</strong> {{ epreuve.badge }} - {{ epreuve.annee }}</p>
+            
+            <p style="color: #475569; font-size: 0.95rem; margin: 15px 0;">
+              {{ epreuve.description }}
+            </p>
+            
+            <!-- Lien de téléchargement adapté à ta route /telecharger/<nom_fichier> -->
+            <a href="{{ url_for('telecharger_fichier', nom_fichier=epreuve.fichier_pdf) }}" class="btn-download">
+              <i class="fas fa-file-download"></i> Télécharger PDF
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+</body>
+</html>

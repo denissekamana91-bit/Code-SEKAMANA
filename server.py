@@ -1,7 +1,9 @@
 import os
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
-from stock import obtenir_toutes_epreuves, obtenir_epreuves_par_filtre, ajouter_epreuve
+
+# CORRECTION 1 : On a bien ajouté 'obtenir_epreuves_par_niveau' à l'importation !
+from stock import obtenir_toutes_epreuves, obtenir_epreuves_par_filtre, ajouter_epreuve, obtenir_epreuves_par_niveau
 
 app = Flask(__name__)
 
@@ -38,7 +40,7 @@ def home():
 
     return render_template('base.html', epreuves_par_matiere=epreuves_par_matiere)
 
-# 2. NOUVEAU : Page "Explorer toutes les épreuves" (Ranger par matières)
+# 2. Page "Explorer toutes les épreuves"
 @app.route('/explorer')
 def explorer():
     toutes_epreuves = obtenir_toutes_epreuves()
@@ -56,7 +58,7 @@ def explorer():
 
     return render_template('explorer.html', epreuves_par_matiere=epreuves_par_matiere, matieres_noms=MATIERES_NOMS)
 
-# 3. NOUVEAU : Route de recherche dans le stock
+# 3. Route de recherche
 @app.route('/recherche')
 def recherche():
     query = request.args.get('q', '').strip()
@@ -66,7 +68,6 @@ def recherche():
     toutes = obtenir_toutes_epreuves()
     q_lower = query.lower()
     
-    # Recherche dans le titre, la description, la matière, le badge et l'année
     resultats = []
     for ep in toutes:
         titre = str(ep.get('titre', '')).lower()
@@ -80,7 +81,7 @@ def recherche():
 
     return render_template('recherche.html', query=query, resultats=resultats)
 
-# 4. Formulaire d'ajout
+# 4. Formulaire d'ajout (GET)
 @app.route('/ajouter', methods=['GET'])
 def ajouter_page():
     return render_template('ajouter.html')
@@ -94,6 +95,7 @@ def ajouter():
     categorie = request.form.get('categorie', '')
     badge = request.form.get('badge', '')
     annee = request.form.get('annee', '')
+    niveau = request.form.get('niveau', '')
     
     filename = ""
     if 'fichier_pdf' in request.files:
@@ -102,16 +104,41 @@ def ajouter():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-    ajouter_epreuve(titre, description, matiere, categorie, badge, annee, filename)
+    # Ajout de l'épreuve dans le stock (fichier et catégorie liés)
+    ajouter_epreuve(titre, description, matiere, categorie, badge, annee, niveau, filename)
     return redirect(url_for('home'))
 
-# 6. Affichage d'un domaine / catégorie
+# 6. Affichage des documents pour une classe spécifique
+@app.route('/classe/<niveau>')
+def voir_classe(niveau):
+    # La fonction est maintenant bien reconnue !
+    epreuves_classe = obtenir_epreuves_par_niveau(niveau)
+    
+    noms_classes = {
+        '2nde_S': 'Seconde S',
+        '1ere_c4': 'Première C4',
+        'tle_c4': 'Terminale C4'
+    }
+    nom_affichage = noms_classes.get(niveau, "Classe Inconnue")
+    
+    return render_template('classe.html', nom_classe=nom_affichage, epreuves=epreuves_classe)
+
+# 7. CORRECTION 2 : Affichage des Catégories et des Matières
 @app.route('/domaine/<nom>')
 def voir_domaine(nom):
-    epreuves_filtres = obtenir_epreuves_par_filtre(nom)
-    return render_template('categorie.html', nom_categorie=nom, epreuves=epreuves_filtres)
+    toutes = obtenir_toutes_epreuves()
+    # On filtre les épreuves par matière ou par catégorie
+    epreuves_filtrees = [
+        ep for ep in toutes 
+        if ep.get('matiere', '').lower() == nom.lower() 
+        or ep.get('categorie', '').lower() == nom.lower()
+    ]
+    nom_affichage = MATIERES_NOMS.get(nom, nom.capitalize())
+    
+    # ON RENVOIE SUR categorie.html (et non plus recherche.html !)
+    return render_template('categorie.html', nom_categorie=nom_affichage, epreuves=epreuves_filtrees)
 
-# 7. Téléchargement direct
+# 8. Téléchargement direct
 @app.route('/telecharger/<nom_fichier>')
 def telecharger_fichier(nom_fichier):
     return send_from_directory(app.config['UPLOAD_FOLDER'], nom_fichier, as_attachment=True)

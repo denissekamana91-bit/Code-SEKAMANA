@@ -1,296 +1,615 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Série C4 - Excellence Scientifique</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://th.bing.com/th/id/R.912ca27104d32600072db4ba5ab58853?rik=IH2q45a%2flWh9gA&pid=ImgRaw&r=0"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lobster&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Série C4 - Excellence Scientifique</title>
-  <link rel="icon" type="image/png" href="https://th.bing.com/th/id/R.912ca27104d32600072db4ba5ab58853?rik=IH2q45a%2flWh9gA&pid=ImgRaw&r=0">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-</head>
-
-<body>
-  <div class="sticky-nav-wrapper">
-    
-    <nav>
-      <div class="logo">
-        <i class="fas fa-graduation-cap"></i>
-      </div>
-      
-      <ul class="nav-links">
-        <li><a href="{{ url_for('home') }}" class="nav-link" data-i18n="nav_home">Accueil</a></li>
-        
-        <li class="nav-dropdown">
-          <a href="#" class="nav-link">Niveaux <i class="fas fa-chevron-down" style="font-size: 0.7em; margin-left: 3px;"></i></a>
-          <ul class="nav-dropdown-menu">
-            <li><a href="#"><i class="fas fa-book"></i> Seconde C4</a></li>
-            <li><a href="#"><i class="fas fa-book-open"></i> Première C4</a></li>
-            <li><a href="#"><i class="fas fa-graduation-cap"></i> Terminale C4</a></li>
-          </ul>
-        </li>
-        
-        <li><a href="#categorie" class="nav-link" data-i18n="nav_categories">Catégories</a></li>
-        <li><a href="#" class="nav-link"><i class="fas fa-bookmark"></i> Favoris</a></li>
-        <li><a href="#about" class="nav-link" data-i18n="nav_about">À propos</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <div class="custom-dropdown">
-          <button class="dropdown-btn" id="current-lang-btn">
-            <img src="https://flagcdn.com/w20/fr.png" alt="France" class="flag-icon" id="current-flag">
-            <span id="current-lang-text">FR</span>
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="dropdown-content" id="langMenu">
-            <a href="#" class="lang-switch" data-lang="en"><img src="https://flagcdn.com/w20/us.png" alt="United States" class="flag-icon"><span>English</span></a>
-            <a href="#" class="lang-switch" data-lang="fr"><img src="https://flagcdn.com/w20/fr.png" alt="France" class="flag-icon"><span>Français</span></a>
-          </div>
+  <body>
+    <div class="sticky-nav-wrapper">
+      <nav>
+        <div class="logo">
+          <i class="fas fa-graduation-cap"></i>
         </div>
 
-        <div class="settings-dropdown">
-          <button class="settings-btn" id="settings-btn" title="Paramètres">
-            <i class="fas fa-cog"></i>
-          </button>
-          <div class="settings-menu" id="settings-menu">
-            <div class="settings-header">Paramètres</div>
-            
-            <div class="settings-item flex-between">
-              <span><i class="fas fa-moon"></i> Mode Sombre</span>
-               <label class="theme-switch" for="theme-toggle" title="Changer le thème">
-                 <input type="checkbox" id="theme-toggle">
-                   <span class="slider round">
-                   <i class="fas fa-sun sun-icon"></i>
-                   <i class="fas fa-moon moon-icon"></i>
+        <ul class="nav-links">
+          <li>
+            <a
+              href="{{ url_for('home') }}"
+              class="nav-link"
+              data-i18n="nav_home"
+              >Accueil</a
+            >
+          </li>
+          <!-- Exemple de menu déroulant pour les classes -->
+          <li class="nav-item nav-dropdown">
+            <a href="#" class="nav-link"
+              >Niveaux <i class="fas fa-chevron-down"></i
+            ></a>
+
+            <!-- C'est ici que la magie opère : on pointe vers la nouvelle route 'voir_classe' -->
+            <ul class="nav-dropdown-menu">
+              <li>
+                <a href="{{ url_for('voir_classe', niveau='2nde_S') }}">
+                  <i class="fas fa-book"></i> Seconde S
+                </a>
+              </li>
+              <li>
+                <a href="{{ url_for('voir_classe', niveau='1ere_c4') }}">
+                  <i class="fas fa-book-open"></i> Première C4
+                </a>
+              </li>
+              <li>
+                <a href="{{ url_for('voir_classe', niveau='tle_c4') }}">
+                  <i class="fas fa-graduation-cap"></i> Terminale C4
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#categorie" class="nav-link" data-i18n="nav_categories"
+              >Catégories</a
+            >
+          </li>
+          <li>
+            <a href="#" class="nav-link"
+              ><i class="fas fa-bookmark"></i> Favoris</a
+            >
+          </li>
+          <li>
+            <a href="#about" class="nav-link" data-i18n="nav_about">À propos</a>
+          </li>
+        </ul>
+
+        <div class="nav-actions">
+          <div class="custom-dropdown">
+            <button class="dropdown-btn" id="current-lang-btn">
+              <img
+                src="https://flagcdn.com/w20/fr.png"
+                alt="France"
+                class="flag-icon"
+                id="current-flag"
+              />
+              <span id="current-lang-text">FR</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <div class="dropdown-content" id="langMenu">
+              <a href="#" class="lang-switch" data-lang="en"
+                ><img
+                  src="https://flagcdn.com/w20/us.png"
+                  alt="United States"
+                  class="flag-icon"
+                /><span>English</span></a
+              >
+              <a href="#" class="lang-switch" data-lang="fr"
+                ><img
+                  src="https://flagcdn.com/w20/fr.png"
+                  alt="France"
+                  class="flag-icon"
+                /><span>Français</span></a
+              >
+            </div>
+          </div>
+
+          <div class="settings-dropdown">
+            <button class="settings-btn" id="settings-btn" title="Paramètres">
+              <i class="fas fa-cog"></i>
+            </button>
+            <div class="settings-menu" id="settings-menu">
+              <div class="settings-header">Paramètres</div>
+
+              <div class="settings-item flex-between">
+                <span><i class="fas fa-moon"></i> Mode Sombre</span>
+                <label
+                  class="theme-switch"
+                  for="theme-toggle"
+                  title="Changer le thème"
+                >
+                  <input type="checkbox" id="theme-toggle" />
+                  <span class="slider round">
+                    <i class="fas fa-sun sun-icon"></i>
+                    <i class="fas fa-moon moon-icon"></i>
                   </span>
-               </label>
-            </div>
+                </label>
+              </div>
 
-<a href="#" class="settings-item">
-  <i class="fas fa-bell"></i> Notifications
-</a>
-            <a href="#" class="settings-item"><i class="fas fa-school"></i> Mon établissement</a>
-            <hr class="settings-divider">
-            <a href="connexion.html" class="settings-item login-item"><i class="fas fa-sign-in-alt"></i> Se connecter</a>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <header>
-      <h1><span class="mot" data-i18n="header_welcome">Bienvenue sur notre plateforme</span></h1>
-      <p data-i18n="header_intro_1">Bienvenue sur le repère des scientifiques de la Série C4 ! 🔬📐 Chers élèves de la 2nde à la Terminale C4, vous êtes au bon endroit.</p>
-      
-      
-        <form action="{{ url_for('recherche') }}" method="GET" class="search-container">
-         <input type="search" name="q" placeholder="Rechercher une épreuve, une matière..." class="glass-input" data-i18n-placeholder="search_placeholder" required>
-         <button type="submit" class="search-btn" aria-label="Rechercher">
-           <i class="fas fa-search"></i>
-         </button>
-       </form>
-      
-
-      <aside>
-        <div class="buttons-search">
-          <a href="{{ url_for('explorer') }}" class="btn-solid" data-i18n="btn_explore">Explorer les épreuves <i class="fas fa-arrow-right"></i></a>
-          <a href="{{ url_for('ajouter_page') }}" class="btn-glass" data-i18n="btn_share">Partager un document</a>
-        </div>
-      </aside>
-
-      <article class="article">
-        <p data-i18n="header_intro_2">On ne va pas se mentir : la série C4 est un vrai défi. Entre les démonstrations de maths, la mécanique, la chimie et la rigueur qu'on vous demande au quotidien, la montagne peut parfois sembler haute. Mais rappelez-vous d'une chose : personne ne réussit seul, et la méthode fait toute la différence.</p>
-      </article>
-    </header>
-
-    <section class="classification">
-      <div class="sub-nav-group">
-        <h2 class="Title" data-i18n="title_subjects">Matières</h2>
-        <div class="sub-nav">
-          <a href="{{ url_for('voir_domaine', nom='math') }}" class="btn-class" data-i18n="subject_math"><i class="fas fa-square-root-variable"></i> Mathématiques</a>
-          <a href="{{ url_for('voir_domaine', nom='physique') }}" class="btn-class" data-i18n="subject_physique"><i class="fas fa-atom"></i> Physique</a>
-          <a href="{{ url_for('voir_domaine', nom='svt') }}" class="btn-class" data-i18n="subject_svt"><i class="fas fa-dna"></i> SVT</a>
-          <a href="{{ url_for('voir_domaine', nom='francais') }}" class="btn-class" data-i18n="subject_francais"><i class="fas fa-pen-nib"></i> Français</a>
-          <a href="{{ url_for('voir_domaine', nom='anglais') }}" class="btn-class" data-i18n="subject_anglais"><i class="fas fa-language"></i> Anglais</a>
-          <a href="{{ url_for('voir_domaine', nom='espagnol') }}" class="btn-class" data-i18n="subject_espagnol"><i class="fas fa-bullhorn"></i> Espagnol</a>
-          <a href="{{ url_for('voir_domaine', nom='allemand') }}" class="btn-class" data-i18n="subject_allemand"><i class="fas fa-comment-dots"></i> Allemand</a>
-          <a href="{{ url_for('voir_domaine', nom='histoire_geographie') }}" class="btn-class" data-i18n="subject_histoire_geographie"><i class="fas fa-globe-africa"></i> Histoire-Géo</a>
-          <a href="{{ url_for('voir_domaine', nom='education_civique') }}" class="btn-class" data-i18n="subject_education_civique"><i class="fas fa-balance-scale"></i> ECM</a>
-          <a href="{{ url_for('voir_domaine', nom='philosophie') }}" class="btn-class" data-i18n="subject_philosophie"><i class="fas fa-brain"></i> Philosophie</a>
-          <a href="{{ url_for('voir_domaine', nom='musique') }}" class="btn-class" data-i18n="subject_musique"><i class="fas fa-music"></i> Musique</a>
-          <a href="{{ url_for('voir_domaine', nom='dessin') }}" class="btn-class" data-i18n="subject_dessin"><i class="fas fa-palette"></i> Dessin</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="resources-section" id="categorie">
-      <h2 class="Title" data-i18n="title_categories">Ressources & Cartes d'Épreuves</h2>
-      <div class="grid-container">
-        <a href="{{ url_for('voir_domaine', nom='bac') }}" class="glass-card category-card">
-          <i class="fas fa-award"></i>
-          <h3 data-i18n="cat_bac">Examens Officiels (BAC I &amp; II)</h3>
-          <p data-i18n="cat_bac_desc">Épreuves de 2000 à 2026</p>
-        </a>
-        <a href="{{ url_for('voir_domaine', nom='national') }}" class="glass-card category-card">
-          <i class="fas fa-globe-africa"></i>
-          <h3 data-i18n="cat_national">Épreuves Nationales</h3>
-          <p data-i18n="cat_national_desc">Togo &amp; Lycée Scientifique de Lomé</p>
-        </a>
-        <a href="{{ url_for('voir_domaine', nom='etablissement') }}" class="glass-card category-card">
-          <i class="fas fa-school"></i>
-          <h3 data-i18n="cat_school">Épreuves d'Établissement</h3>
-          <p data-i18n="cat_school_desc">Collège et Lycée Notre Dame de la Trinité<br>Collège Saint Joseph</p>
-        </a>
-        <a href="{{ url_for('voir_domaine', nom='facultative') }}" class="glass-card category-card">
-          <i class="fas fa-music"></i>
-          <h3 data-i18n="cat_optional">Matières Facultatives</h3>
-          <p data-i18n="cat_optional_desc">Allemand, Musique, etc.</p>
-        </a>
-        <a href="{{ url_for('voir_domaine', nom='bibliotheque') }}" class="glass-card category-card">
-          <i class="fas fa-book-open"></i>
-          <h3 data-i18n="cat_library">Bibliothèque</h3>
-          <p data-i18n="cat_library_desc">Livres et annales de révision</p>
-        </a>
-        <a href="{{ url_for('voir_domaine', nom='autres') }}" class="glass-card category-card">
-          <i class="fas fa-archive"></i>
-          <h3 data-i18n="cat_others">Autres Épreuves</h3>
-          <p data-i18n="cat_others_desc">Ressources diverses</p>
-        </a>
-      </div>
-    </section>
-  </div> 
-
-
-
-
-  <section class="epreuve-preview-section">
-    <h2 class="Title" data-i18n="title_preview">Aperçu des Épreuves</h2>
-
-    <div class="carousel-header">
-      <button id="prev-subject" class="carousel-arrow"><i class="fas fa-chevron-left"></i></button>
-      <div class="subject-indicator">
-        <span id="active-subject-name"><i class="fas fa-square-root-variable"></i> Mathématiques</span>
-      </div>
-      <button id="next-subject" class="carousel-arrow"><i class="fas fa-chevron-right"></i></button>
-    </div>
-
-    <div class="carousel-viewport">
-      <div class="carousel-track" id="subjects-track">
-
-        {% for matiere_key, liste_epreuves in epreuves_par_matiere.items() %}
-          <div class="subject-slide" data-subject="{{ matiere_key }}">
-            <div class="epreuves-grid">
-              
-              {% for epreuve in liste_epreuves %}
-                <div class="epreuve-card glass-card">
-                  <span class="badge" style="background: rgba(37,99,235,0.15); color: #2563eb;">{{ epreuve.badge }} - {{ epreuve.annee }}</span>
-                  <h4>{{ epreuve.titre }}</h4>
-                  <p>{{ epreuve.description }}</p>
-                  
-                  {% if epreuve.fichier_pdf %}
-                    <div style="display: flex; gap: 10px; width: 100%; margin-top: 15px;">
-                      
-                      <button class="btn-preview" data-pdf-url="{{ url_for('static', filename='uploads/' + epreuve.fichier_pdf) }}" style="flex: 1; padding: 8px 0; background: #38bdf8; color: white; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 0.85rem;">
-                        <i class="fas fa-eye"></i> Aperçu
-                      </button>
-                      
-                      <a href="{{ url_for('telecharger_fichier', nom_fichier=epreuve.fichier_pdf) }}" class="btn-class" style="flex: 1; text-align: center; text-decoration: none; padding: 8px 0; background: #2563eb; color: white; border-radius: 12px; font-weight: bold; font-size: 0.85rem; transition: 0.3s;">
-                        <i class="fas fa-download"></i> PDF
-                      </a>
-                      
-                    </div>
-                  {% endif %}
-                </div>
-                
-              {% else %}
-                <div class="epreuve-card glass-card" style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; grid-column: 1 / -1; padding: 40px;">
-                  <i class="fas fa-folder-open" style="font-size: 2.5rem; color: #94a3b8; margin-bottom: 15px;"></i>
-                  <p>Aucune épreuve disponible pour le moment dans cette matière.</p>
-                  <a href="{{ url_for('ajouter_page') }}" style="color: #2563eb; font-weight: bold; text-decoration: none; margin-top: 10px;"><i class="fas fa-plus"></i> Soyez le premier à contribuer !</a>
-                </div>
-              {% endfor %}
-
+              <a href="#" class="settings-item">
+                <i class="fas fa-bell"></i> Notifications
+              </a>
+              <a href="#" class="settings-item"
+                ><i class="fas fa-school"></i> Mon établissement</a
+              >
+              <hr class="settings-divider" />
+              <a href="connexion.html" class="settings-item login-item"
+                ><i class="fas fa-sign-in-alt"></i> Se connecter</a
+              >
             </div>
           </div>
-        {% endfor %}
+        </div>
+      </nav>
 
-      </div>
-    </div>
-  </section>
-
-  <section id="about" class="about-section glass-card">
-    <span class="about-badge" data-i18n="about_badge"><i class="fas fa-heart"></i> Notre Mission</span>
-    <h2 class="about-title" data-i18n="about_title">Pourquoi ce site ?</h2>
-    <p class="about-text" id="about-text" data-i18n="about_text">
-      J'ai conçu cette plateforme avec une conviction forte : l'accès aux ressources éducatives ne devrait pas être un obstacle. En tant qu'élève, j'ai réalisé la difficulté de rassembler les anciennes épreuves pour s'entraîner. Ce site est né d'un désir d'entraide pour permettre à chacun de viser l'excellence absolue aux examens. <strong>L'excellence est une réussite collective.</strong>
-    </p>
-  </section>
-
-  <footer class="main-footer">
-    <div class="footer-container">
-      <div class="footer-col footer-brand">
-        <h3 class="footer-logo">Série C4</h3>
-        <p class="footer-desc" data-i18n="footer_desc">
-          Plateforme dédiée à l'excellence scientifique. Retrouvez des sujets, annales, devoirs et corrigés pour préparer vos examens avec sérénité.
+      <header>
+        <h1>
+          <span class="mot" data-i18n="header_welcome"
+            >Bienvenue sur notre plateforme</span
+          >
+        </h1>
+        <p data-i18n="header_intro_1">
+          Bienvenue sur le repère des scientifiques de la Série C4 ! 🔬📐 Chers
+          élèves de la 2nde à la Terminale C4, vous êtes au bon endroit.
         </p>
-        <div class="footer-badge" data-i18n="footer_badge">
-          <i class="fas fa-graduation-cap"></i> Par un élève, pour les élèves
+
+        <form
+          action="{{ url_for('recherche') }}"
+          method="GET"
+          class="search-container"
+        >
+          <input
+            type="search"
+            name="q"
+            placeholder="Rechercher une épreuve, une matière..."
+            class="glass-input"
+            data-i18n-placeholder="search_placeholder"
+            required
+          />
+          <button type="submit" class="search-btn" aria-label="Rechercher">
+            <i class="fas fa-search"></i>
+          </button>
+        </form>
+
+        <aside>
+          <div class="buttons-search">
+            <a
+              href="{{ url_for('explorer') }}"
+              class="btn-solid"
+              data-i18n="btn_explore"
+              >Explorer les épreuves <i class="fas fa-arrow-right"></i
+            ></a>
+            <a
+              href="{{ url_for('ajouter_page') }}"
+              class="btn-glass"
+              data-i18n="btn_share"
+              >Partager un document</a
+            >
+          </div>
+        </aside>
+
+        <article class="article">
+          <p data-i18n="header_intro_2">
+            On ne va pas se mentir : la série C4 est un vrai défi. Entre les
+            démonstrations de maths, la mécanique, la chimie et la rigueur qu'on
+            vous demande au quotidien, la montagne peut parfois sembler haute.
+            Mais rappelez-vous d'une chose : personne ne réussit seul, et la
+            méthode fait toute la différence.
+          </p>
+        </article>
+      </header>
+
+      <section class="classification">
+        <div class="sub-nav-group">
+          <h2 class="Title" data-i18n="title_subjects">Matières</h2>
+          <div class="sub-nav">
+            <a
+              href="{{ url_for('voir_domaine', nom='math') }}"
+              class="btn-class"
+              data-i18n="subject_math"
+              ><i class="fas fa-square-root-variable"></i> Mathématiques</a
+            >
+            <a
+              href="{{ url_for('voir_domaine', nom='physique') }}"
+              class="btn-class"
+              data-i18n="subject_physique"
+              ><i class="fas fa-atom"></i> Physique</a
+            >
+            <a
+              href="{{ url_for('voir_domaine', nom='svt') }}"
+              class="btn-class"
+              data-i18n="subject_svt"
+              ><i class="fas fa-dna"></i> SVT</a
+            >
+            <a
+              href="{{ url_for('voir_domaine', nom='francais') }}"
+              class="btn-class"
+              data-i18n="subject_francais"
+              ><i class="fas fa-pen-nib"></i> Français</a
+            >
+            <a
+              href="{{ url_for('voir_domaine', nom='anglais') }}"
+              class="btn-class"
+              data-i18n="subject_anglais"
+              ><i class="fas fa-language"></i> Anglais</a
+            >
+            <a
+              href="{{ url_for('voir_domaine', nom='espagnol') }}"
+              class="btn-class"
+              data-i18n="subject_espagnol"
+              ><i class="fas fa-bullhorn"></i> Espagnol</a
+            >
+            <a
+              href="{{ url_for('voir_domaine', nom='allemand') }}"
+              class="btn-class"
+              data-i18n="subject_allemand"
+              ><i class="fas fa-comment-dots"></i> Allemand</a
+            >
+            <a
+              href="{{ url_for('voir_domaine', nom='histoire_geographie') }}"
+              class="btn-class"
+              data-i18n="subject_histoire_geographie"
+              ><i class="fas fa-globe-africa"></i> Histoire-Géo</a
+            >
+            <a
+              href="{{ url_for('voir_domaine', nom='education_civique') }}"
+              class="btn-class"
+              data-i18n="subject_education_civique"
+              ><i class="fas fa-balance-scale"></i> ECM</a
+            >
+            <a
+              href="{{ url_for('voir_domaine', nom='philosophie') }}"
+              class="btn-class"
+              data-i18n="subject_philosophie"
+              ><i class="fas fa-brain"></i> Philosophie</a
+            >
+            <a
+              href="{{ url_for('voir_domaine', nom='musique') }}"
+              class="btn-class"
+              data-i18n="subject_musique"
+              ><i class="fas fa-music"></i> Musique</a
+            >
+            <a
+              href="{{ url_for('voir_domaine', nom='dessin') }}"
+              class="btn-class"
+              data-i18n="subject_dessin"
+              ><i class="fas fa-palette"></i> Dessin</a
+            >
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div class="footer-col">
-        <h4 data-i18n="footer_nav">Navigation</h4>
-        <ul class="footer-links">
-          <li><a href="#"><i class="fas fa-chevron-right"></i> <span data-i18n="nav_home">Accueil</span></a></li>
-          <li><a href="#categorie"><i class="fas fa-chevron-right"></i> <span data-i18n="nav_categories">Catégories</span></a></li>
-          <li><a href="#about"><i class="fas fa-chevron-right"></i> <span data-i18n="nav_about">À propos</span></a></li>
-          <li><a href="#contact"><i class="fas fa-chevron-right"></i> <span data-i18n="footer_contact_title">Contact & Entraide</span></a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h4 data-i18n="footer_subjects">Matières</h4>
-        <ul class="footer-links">
-          <li><a href="{{ url_for('voir_domaine', nom='math') }}" data-i18n="subject_math"><i class="fas fa-square-root-variable"></i> Mathématiques</a></li>
-          <li><a href="{{ url_for('voir_domaine', nom='physique') }}" data-i18n="subject_physique"><i class="fas fa-atom"></i> Physique-Chimie</a></li>
-          <li><a href="{{ url_for('voir_domaine', nom='svt') }}" data-i18n="subject_svt"><i class="fas fa-dna"></i> SVT</a></li>
-          <li><a href="{{ url_for('voir_domaine', nom='philosophie') }}" data-i18n="subject_philosophie"><i class="fas fa-brain"></i> Philosophie</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-contact" id="contact">
-        <h4 data-i18n="footer_contact_title">Contact & Entraide</h4>
-        <p data-i18n="footer_contact_desc">Une question, une suggestion ou une contribution ? N'hésitez pas !</p>
-        <a href="mailto:denissekamana91@gmail.com" class="contact-item">
-          <i class="fas fa-envelope"></i>
-          <span>denissekamana91@gmail.com</span>
-        </a>
-        <div class="whatsapp-box">
-          <span data-i18n="footer_whatsapp">Partagez vos épreuves directement :</span>
-          <a href="https://wa.me/221766918533" class="whatsapp-btn" target="_blank" rel="noopener">
-            <i class="fab fa-whatsapp"></i> +221 76 691 85 33
+      <section class="resources-section" id="categorie">
+        <h2 class="Title" data-i18n="title_categories">
+          Ressources & Cartes d'Épreuves
+        </h2>
+        <div class="grid-container">
+          <a
+            href="{{ url_for('voir_domaine', nom='bac') }}"
+            class="glass-card category-card"
+          >
+            <i class="fas fa-award"></i>
+            <h3 data-i18n="cat_bac">Examens Officiels (BAC I &amp; II)</h3>
+            <p data-i18n="cat_bac_desc">Épreuves de 2000 à 2026</p>
+          </a>
+          <a
+            href="{{ url_for('voir_domaine', nom='national') }}"
+            class="glass-card category-card"
+          >
+            <i class="fas fa-globe-africa"></i>
+            <h3 data-i18n="cat_national">Épreuves Nationales</h3>
+            <p data-i18n="cat_national_desc">
+              Togo &amp; Lycée Scientifique de Lomé
+            </p>
+          </a>
+          <a
+            href="{{ url_for('voir_domaine', nom='etablissement') }}"
+            class="glass-card category-card"
+          >
+            <i class="fas fa-school"></i>
+            <h3 data-i18n="cat_school">Épreuves d'Établissement</h3>
+            <p data-i18n="cat_school_desc">
+              Collège et Lycée Notre Dame de la Trinité<br />Collège Saint
+              Joseph
+            </p>
+          </a>
+          <a
+            href="{{ url_for('voir_domaine', nom='facultative') }}"
+            class="glass-card category-card"
+          >
+            <i class="fas fa-music"></i>
+            <h3 data-i18n="cat_optional">Matières Facultatives</h3>
+            <p data-i18n="cat_optional_desc">Allemand, Musique, etc.</p>
+          </a>
+          <a
+            href="{{ url_for('voir_domaine', nom='bibliotheque') }}"
+            class="glass-card category-card"
+          >
+            <i class="fas fa-book-open"></i>
+            <h3 data-i18n="cat_library">Bibliothèque</h3>
+            <p data-i18n="cat_library_desc">Livres et annales de révision</p>
+          </a>
+          <a
+            href="{{ url_for('voir_domaine', nom='autres') }}"
+            class="glass-card category-card"
+          >
+            <i class="fas fa-archive"></i>
+            <h3 data-i18n="cat_others">Autres Épreuves</h3>
+            <p data-i18n="cat_others_desc">Ressources diverses</p>
           </a>
         </div>
+      </section>
+    </div>
+
+    <section class="epreuve-preview-section">
+      <h2 class="Title" data-i18n="title_preview">Aperçu des Épreuves</h2>
+
+      <div class="carousel-header">
+        <button id="prev-subject" class="carousel-arrow">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="subject-indicator">
+          <span id="active-subject-name"
+            ><i class="fas fa-square-root-variable"></i> Mathématiques</span
+          >
+        </div>
+        <button id="next-subject" class="carousel-arrow">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <div class="carousel-viewport">
+        <div class="carousel-track" id="subjects-track">
+          {% for matiere_key, liste_epreuves in epreuves_par_matiere.items() %}
+          <div class="subject-slide" data-subject="{{ matiere_key }}">
+            <div class="epreuves-grid">
+              {% for epreuve in liste_epreuves %}
+              <div class="epreuve-card glass-card">
+                <span
+                  class="badge"
+                  style="background: rgba(37, 99, 235, 0.15); color: #2563eb"
+                  >{{ epreuve.badge }} - {{ epreuve.annee }}</span
+                >
+                <h4>{{ epreuve.titre }}</h4>
+                <p>{{ epreuve.description }}</p>
+
+                {% if epreuve.fichier_pdf %}
+                <div
+                  style="
+                    display: flex;
+                    gap: 10px;
+                    width: 100%;
+                    margin-top: 15px;
+                  "
+                >
+                  <button
+                    class="btn-preview"
+                    data-pdf-url="{{ url_for('static', filename='uploads/' + epreuve.fichier_pdf) }}"
+                    style="
+                      flex: 1;
+                      padding: 8px 0;
+                      background: #38bdf8;
+                      color: white;
+                      border: none;
+                      border-radius: 12px;
+                      cursor: pointer;
+                      font-weight: bold;
+                      transition: 0.3s;
+                      font-size: 0.85rem;
+                    "
+                  >
+                    <i class="fas fa-eye"></i> Aperçu
+                  </button>
+
+                  <a
+                    href="{{ url_for('telecharger_fichier', nom_fichier=epreuve.fichier_pdf) }}"
+                    class="btn-class"
+                    style="
+                      flex: 1;
+                      text-align: center;
+                      text-decoration: none;
+                      padding: 8px 0;
+                      background: #2563eb;
+                      color: white;
+                      border-radius: 12px;
+                      font-weight: bold;
+                      font-size: 0.85rem;
+                      transition: 0.3s;
+                    "
+                  >
+                    <i class="fas fa-download"></i> PDF
+                  </a>
+                </div>
+                {% endif %}
+              </div>
+
+              {% else %}
+              <div
+                class="epreuve-card glass-card"
+                style="
+                  text-align: center;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  grid-column: 1 / -1;
+                  padding: 40px;
+                "
+              >
+                <i
+                  class="fas fa-folder-open"
+                  style="font-size: 2.5rem; color: #94a3b8; margin-bottom: 15px"
+                ></i>
+                <p>
+                  Aucune épreuve disponible pour le moment dans cette matière.
+                </p>
+                <a
+                  href="{{ url_for('ajouter_page') }}"
+                  style="
+                    color: #2563eb;
+                    font-weight: bold;
+                    text-decoration: none;
+                    margin-top: 10px;
+                  "
+                  ><i class="fas fa-plus"></i> Soyez le premier à contribuer
+                  !</a
+                >
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about-section glass-card">
+      <span class="about-badge" data-i18n="about_badge"
+        ><i class="fas fa-heart"></i> Notre Mission</span
+      >
+      <h2 class="about-title" data-i18n="about_title">Pourquoi ce site ?</h2>
+      <p class="about-text" id="about-text" data-i18n="about_text">
+        J'ai conçu cette plateforme avec une conviction forte : l'accès aux
+        ressources éducatives ne devrait pas être un obstacle. En tant qu'élève,
+        j'ai réalisé la difficulté de rassembler les anciennes épreuves pour
+        s'entraîner. Ce site est né d'un désir d'entraide pour permettre à
+        chacun de viser l'excellence absolue aux examens.
+        <strong>L'excellence est une réussite collective.</strong>
+      </p>
+    </section>
+
+    <footer class="main-footer">
+      <div class="footer-container">
+        <div class="footer-col footer-brand">
+          <h3 class="footer-logo">Série C4</h3>
+          <p class="footer-desc" data-i18n="footer_desc">
+            Plateforme dédiée à l'excellence scientifique. Retrouvez des sujets,
+            annales, devoirs et corrigés pour préparer vos examens avec
+            sérénité.
+          </p>
+          <div class="footer-badge" data-i18n="footer_badge">
+            <i class="fas fa-graduation-cap"></i> Par un élève, pour les élèves
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footer_nav">Navigation</h4>
+          <ul class="footer-links">
+            <li>
+              <a href="#"
+                ><i class="fas fa-chevron-right"></i>
+                <span data-i18n="nav_home">Accueil</span></a
+              >
+            </li>
+            <li>
+              <a href="#categorie"
+                ><i class="fas fa-chevron-right"></i>
+                <span data-i18n="nav_categories">Catégories</span></a
+              >
+            </li>
+            <li>
+              <a href="#about"
+                ><i class="fas fa-chevron-right"></i>
+                <span data-i18n="nav_about">À propos</span></a
+              >
+            </li>
+            <li>
+              <a href="#contact"
+                ><i class="fas fa-chevron-right"></i>
+                <span data-i18n="footer_contact_title"
+                  >Contact & Entraide</span
+                ></a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="footer_subjects">Matières</h4>
+          <ul class="footer-links">
+            <li>
+              <a
+                href="{{ url_for('voir_domaine', nom='math') }}"
+                data-i18n="subject_math"
+                ><i class="fas fa-square-root-variable"></i> Mathématiques</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('voir_domaine', nom='physique') }}"
+                data-i18n="subject_physique"
+                ><i class="fas fa-atom"></i> Physique-Chimie</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('voir_domaine', nom='svt') }}"
+                data-i18n="subject_svt"
+                ><i class="fas fa-dna"></i> SVT</a
+              >
+            </li>
+            <li>
+              <a
+                href="{{ url_for('voir_domaine', nom='philosophie') }}"
+                data-i18n="subject_philosophie"
+                ><i class="fas fa-brain"></i> Philosophie</a
+              >
+            </li>
+          </ul>
+        </div>
+
+        <div class="footer-col footer-contact" id="contact">
+          <h4 data-i18n="footer_contact_title">Contact & Entraide</h4>
+          <p data-i18n="footer_contact_desc">
+            Une question, une suggestion ou une contribution ? N'hésitez pas !
+          </p>
+          <a href="mailto:denissekamana91@gmail.com" class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>denissekamana91@gmail.com</span>
+          </a>
+          <div class="whatsapp-box">
+            <span data-i18n="footer_whatsapp"
+              >Partagez vos épreuves directement :</span
+            >
+            <a
+              href="https://wa.me/221766918533"
+              class="whatsapp-btn"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fab fa-whatsapp"></i> +221 76 691 85 33
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-bottom-content">
+          <p data-i18n="footer_rights">
+            &copy; 2026 <strong>Série C4 - Excellence Scientifique</strong>.
+            Tous droits réservés.
+          </p>
+          <p class="made-with" data-i18n="footer_made_with">
+            Fait avec <i class="fas fa-heart"></i> pour l'excellence éducative
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <div id="pdf-modal" class="pdf-modal">
+      <div class="modal-content">
+        <span class="close-modal"><i class="fas fa-times"></i></span>
+        <iframe id="pdf-iframe" src="" frameborder="0"></iframe>
       </div>
     </div>
 
-    <div class="footer-bottom">
-      <div class="footer-bottom-content">
-        <p data-i18n="footer_rights">&copy; 2026 <strong>Série C4 - Excellence Scientifique</strong>. Tous droits réservés.</p>
-        <p class="made-with" data-i18n="footer_made_with">Fait avec <i class="fas fa-heart"></i> pour l'excellence éducative</p>
-      </div>
-    </div>
-  </footer>
-
-  <div id="pdf-modal" class="pdf-modal">
-    <div class="modal-content">
-      <span class="close-modal"><i class="fas fa-times"></i></span>
-      <iframe id="pdf-iframe" src="" frameborder="0"></iframe>
-    </div>
-  </div>
-
-  <script src="{{ url_for('static', filename='theme.js') }}"></script>
-</body>
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
+  </body>
 </html>
