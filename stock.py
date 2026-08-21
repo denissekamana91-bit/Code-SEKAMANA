@@ -1,52 +1,34 @@
+# --- 1. IMPORTS ---
 import datetime
+import json
+import os
 
-# --- BASE DE DONNÉES EN MÉMOIRE DE SÉRIE C4 ---
-epreuves_db = [
-    {
-        "id": 1,
-        "titre": "Mathématiques C4 - Session Normale",
-        "description": "Épreuve complète avec sujet et corrigé détaillé.",
-        "matiere": "math",
-        "categorie": "bac",
-        "badge": "BAC II",
-        "annee": 2024,
-        "niveau": "tle_c4",
-        "fichier_pdf": "math_2024_normal.pdf"
-    },
-    {
-        "id": 2,
-        "titre": "Physique-Chimie - Mécanique & Cinétique",
-        "description": "Série C4 - Sujet officiel Togo avec barème.",
-        "matiere": "physique",
-        "categorie": "national",
-        "badge": "Devoir N°1",
-        "annee": 2025,
-        "niveau": "tle_c4",
-        "fichier_pdf": "physique_meca_2025.pdf"
-    }
-]
-
+# --- 2. FONCTIONS DE LECTURE MODIFIÉES ---
 def obtenir_toutes_epreuves():
-    return epreuves_db
+    return lire_donnees_json()
 
 def obtenir_epreuves_par_filtre(filtre):
     """Recherche les épreuves par matière ou par catégorie."""
     filtre = filtre.lower()
+    donnees = lire_donnees_json()
     return [
-        e for e in epreuves_db 
+        e for e in donnees 
         if e.get('matiere', '').lower() == filtre or e.get('categorie', '').lower() == filtre
     ]
 
 def obtenir_epreuves_par_niveau(niveau):
     """Recherche les épreuves par niveau/classe."""
     niveau = niveau.lower()
+    donnees = lire_donnees_json()
     return [
-        e for e in epreuves_db 
+        e for e in donnees 
         if e.get('niveau', '').lower() == niveau
     ]
 
+# --- 3. FONCTION D'AJOUT MODIFIÉE ---
 def ajouter_epreuve(titre, description, matiere, categorie, badge, annee, niveau="tle_c4", fichier_pdf=""):
-    nouvel_id = len(epreuves_db) + 1
+    donnees = lire_donnees_json()
+    nouvel_id = len(donnees) + 1
     
     # Gestion sécurisée de l'année optionnelle
     annee_value = "N/A"
@@ -55,7 +37,7 @@ def ajouter_epreuve(titre, description, matiere, categorie, badge, annee, niveau
             annee_value = int(annee)
         except ValueError:
             annee_value = str(annee).strip()
-
+            
     nouvelle_epreuve = {
         "id": nouvel_id,
         "titre": titre,
@@ -67,5 +49,23 @@ def ajouter_epreuve(titre, description, matiere, categorie, badge, annee, niveau
         "niveau": niveau,
         "fichier_pdf": fichier_pdf
     }
-    epreuves_db.append(nouvelle_epreuve)
+    
+    donnees.append(nouvelle_epreuve)
+    sauvegarder_donnees_json(donnees)
     return nouvelle_epreuve
+
+# --- 4. LE MOTEUR JSON (NOUVEAU) ---
+FICHIER_JSON = 'epreuves.json'
+
+def lire_donnees_json():
+    if not os.path.exists(FICHIER_JSON):
+        return []
+    try:
+        with open(FICHIER_JSON, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        return []
+
+def sauvegarder_donnees_json(donnees):
+    with open(FICHIER_JSON, 'w', encoding='utf-8') as f:
+        json.dump(donnees, f, indent=4, ensure_ascii=False)
