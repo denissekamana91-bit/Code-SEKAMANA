@@ -103,6 +103,13 @@
                     </button>
                     <a href="{{ url_for('telecharger_fichier', nom_fichier=epreuve.fichier_pdf) }}" class="btn-action btn-download-style">
                       <i class="fas fa-download"></i> PDF
+                      <!-- NOUVEAU BOUTON DE SUPPRESSION AVEC ALERTE -->
+  <a href="{{ url_for('effacer_document', id_epreuve=epreuve.id) }}" 
+     class="btn-action" 
+     style="background: #ef4444; color: white;" 
+     onclick="return confirm('Êtes-vous sûr de vouloir supprimer définitivement cette épreuve ?');">
+    <i class="fas fa-trash"></i> Supprimer
+  </a>
                     </a>
                   </div>
                 {% endif %}

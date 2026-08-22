@@ -69,3 +69,10 @@ def lire_donnees_json():
 def sauvegarder_donnees_json(donnees):
     with open(FICHIER_JSON, 'w', encoding='utf-8') as f:
         json.dump(donnees, f, indent=4, ensure_ascii=False)
+def supprimer_epreuve(id_epreuve):
+    """Supprime une épreuve du fichier JSON grâce à son ID."""
+    donnees = lire_donnees_json()
+    # On recrée la liste en gardant toutes les épreuves SAUF celle qui correspond à l'ID
+    donnees_restantes = [ep for ep in donnees      if ep.get('id') != id_epreuve]
+    sauvegarder_donnees_json(donnees_restantes)
+

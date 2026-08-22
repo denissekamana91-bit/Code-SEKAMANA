@@ -2,17 +2,6 @@
     {
         "id": 1,
         "titre": "Devoir Surveillé du 3ème Trimestre - Sciences Physiques",
-        "description": "Sujet de Sciences Physiques du Collège Saint-Joseph de Lomé (Mars 2025). Comporte 5 exercices portant sur les hydrocarbures, l'électricité, les potentiels redox et les amplificateurs opérationnels.  ",
-        "matiere": "physique",
-        "categorie": "etablissement",
-        "badge": "Devoir N°3",
-        "annee": 2025,
-        "niveau": "1ere_c4",
-        "fichier_pdf": "1C4_PCT_St-Joseph_Mars_2025.pdf"
-    },
-    {
-        "id": 2,
-        "titre": "Devoir Surveillé du 3ème Trimestre - Sciences Physiques",
         "description": "Comporte 5 exercices portant sur les hydrocarbures, l'électricité, les potentiels redox et les amplificateurs opérationnels.  ",
         "matiere": "physique",
         "categorie": "etablissement",
@@ -22,7 +11,7 @@
         "fichier_pdf": "1C4_PCT_St-Joseph_Mars_2025.pdf"
     },
     {
-        "id": 3,
+        "id": 2,
         "titre": "Devoir Surveillé du Second Semestre - Mathématiques",
         "description": "Comprend des exercices sur la trigonométrie, les transformations du plan et un problème d'analyse sur les fonctions.",
         "matiere": "math",

@@ -2,8 +2,8 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 
-# CORRECTION 1 : On a bien ajouté 'obtenir_epreuves_par_niveau' à l'importation !
-from stock import obtenir_toutes_epreuves, obtenir_epreuves_par_filtre, ajouter_epreuve, obtenir_epreuves_par_niveau
+# Ajoute 'supprimer_epreuve' à la fin de tes imports
+from stock import obtenir_toutes_epreuves, obtenir_epreuves_par_filtre, ajouter_epreuve, obtenir_epreuves_par_niveau, supprimer_epreuve
 
 app = Flask(__name__)
 
@@ -138,7 +138,15 @@ def voir_domaine(nom):
     # ON RENVOIE SUR categorie.html (et non plus recherche.html !)
     return render_template('categorie.html', nom_categorie=nom_affichage, epreuves=epreuves_filtrees)
 
-# 8. Téléchargement direct
+  # 8. Route pour supprimer une épreuve
+@app.route('/supprimer/<int:id_epreuve>')
+def effacer_document(id_epreuve):
+    supprimer_epreuve(id_epreuve)
+    # Après suppression, on redirige vers la page pour tout explorer
+    return redirect(url_for('explorer'))
+
+
+# 9. Téléchargement direct
 @app.route('/telecharger/<nom_fichier>')
 def telecharger_fichier(nom_fichier):
     return send_from_directory(app.config['UPLOAD_FOLDER'], nom_fichier, as_attachment=True)

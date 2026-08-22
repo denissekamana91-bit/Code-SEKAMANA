@@ -117,6 +117,7 @@ const translations = {
         "footer_contact_title": "Contact & Entraide",
         "footer_contact_desc": "Une question, une suggestion ou une contribution ? N'hésitez pas !",
         "footer_whatsapp": "Partagez vos épreuves directement :",
+         "footer_whatsapp2":"Et pour plus d’information me contacter sur le :",
         "footer_rights": "&copy; 2026 <strong>Série C4 - Excellence Scientifique</strong>. Tous droits réservés.",
         "footer_made_with": "Fait avec <i class='fas fa-heart'></i> pour l'excellence éducative"
     },
@@ -234,6 +235,7 @@ const translations = {
         "footer_contact_title": "Contact & Community",
         "footer_contact_desc": "A question, suggestion, or contribution? Don't hesitate!",
         "footer_whatsapp": "Share your exams directly:",
+         "footer_whatsapp2":"For more information, please contact me at:",
         "footer_rights": "&copy; 2026 <strong>Series C4 - Scientific Excellence</strong>. All rights reserved.",
         "footer_made_with": "Made with <i class='fas fa-heart'></i> for educational excellence"
     }
